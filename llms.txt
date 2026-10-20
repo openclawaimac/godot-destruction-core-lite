@@ -1,0 +1,37 @@
+# Godot Destruction Core Lite
+
+> Free, MIT-licensed 2D destruction addon for Godot 4 (typed GDScript, Godot 4.6+, tested on 4.7.2): destructible cell terrain, damage shapes, single detonations and deterministic structural collapse with falling pieces, rubble and crush damage. 76 passing headless tests (`bash tools/run_tests.sh`). The Pro edition adds chain reactions (DKChainReactor), deterministic fire (DKFire), load-based stress (DKStress), image/mask import (DKMaskAdapter), debug overlays, command log/replay (DKCommandLog) and a run-and-gun demo, with the same API (133 tests).
+
+Copy `addons/godot_destruction_core/lite/` into a Godot 4 project to use it. Class prefix `DK`; entry point is `DKWorld`.
+
+## Docs
+
+- [README](https://github.com/openclawaimac/godot-destruction-core-lite/blob/main/README.md): features, API, Lite vs Pro
+- [QUICKSTART](https://github.com/openclawaimac/godot-destruction-core-lite/blob/main/QUICKSTART.md): first world, detonation, collapse, saves
+- [AGENTS.md](https://github.com/openclawaimac/godot-destruction-core-lite/blob/main/AGENTS.md): structure, tests, how to extend, rules for coding agents
+- [Website](https://openclawaimac.github.io/godot-destruction-core/): product page with Lite vs Pro table
+
+## Code
+
+- [addons/godot_destruction_core/lite/dk_world.gd](https://github.com/openclawaimac/godot-destruction-core-lite/tree/main/addons/godot_destruction_core/lite/dk_world.gd): DKWorld (Node2D): setup, load_rows, apply_damage, detonate, tick, snapshot/restore, state_digest, signals
+- [addons/godot_destruction_core/lite/dk_cell_grid.gd](https://github.com/openclawaimac/godot-destruction-core-lite/tree/main/addons/godot_destruction_core/lite/dk_cell_grid.gd): DKCellGrid: packed cell grid, apply(damage) -> DKReport, digest
+- [addons/godot_destruction_core/lite/dk_material.gd](https://github.com/openclawaimac/godot-destruction-core-lite/tree/main/addons/godot_destruction_core/lite/dk_material.gd): DKMaterial: hp, resistances, anchor, rubble, blast and fire data
+- [addons/godot_destruction_core/lite/dk_material_set.gd](https://github.com/openclawaimac/godot-destruction-core-lite/tree/main/addons/godot_destruction_core/lite/dk_material_set.gd): DKMaterialSet: ordered materials, index 0 = air
+- [addons/godot_destruction_core/lite/dk_damage.gd](https://github.com/openclawaimac/godot-destruction-core-lite/tree/main/addons/godot_destruction_core/lite/dk_damage.gd): DKDamage: circle, rect, line, cell, cells shapes with falloff and instigator
+- [addons/godot_destruction_core/lite/dk_report.gd](https://github.com/openclawaimac/godot-destruction-core-lite/tree/main/addons/godot_destruction_core/lite/dk_report.gd): DKReport: destroyed/damaged cells, by material, instigator
+- [addons/godot_destruction_core/lite/dk_scheduler.gd](https://github.com/openclawaimac/godot-destruction-core-lite/tree/main/addons/godot_destruction_core/lite/dk_scheduler.gd): DKScheduler: budgeted per-frame work queues, never drops work
+- [addons/godot_destruction_core/lite/dk_support.gd](https://github.com/openclawaimac/godot-destruction-core-lite/tree/main/addons/godot_destruction_core/lite/dk_support.gd): DKSupport: resumable support flood fill (collapse detection)
+- [addons/godot_destruction_core/lite/dk_pieces.gd](https://github.com/openclawaimac/godot-destruction-core-lite/tree/main/addons/godot_destruction_core/lite/dk_pieces.gd): DKPieces: falling pieces, rubble, crush damage
+- [addons/godot_destruction_core/lite/dk_debris.gd](https://github.com/openclawaimac/godot-destruction-core-lite/tree/main/addons/godot_destruction_core/lite/dk_debris.gd): DKDebris: capped debris/dust pool (cosmetic, hash-driven)
+- [addons/godot_destruction_core/lite/dk_feel.gd](https://github.com/openclawaimac/godot-destruction-core-lite/tree/main/addons/godot_destruction_core/lite/dk_feel.gd): DKFeel: shake, once-per-chain hitstop, reduced motion
+- [addons/godot_destruction_core/lite/dk_tile_renderer.gd](https://github.com/openclawaimac/godot-destruction-core-lite/tree/main/addons/godot_destruction_core/lite/dk_tile_renderer.gd): DKTileRenderer (TileMapLayer): draws the grid and falling pieces
+- [addons/godot_destruction_core/lite/dk_chunk_collision.gd](https://github.com/openclawaimac/godot-destruction-core-lite/tree/main/addons/godot_destruction_core/lite/dk_chunk_collision.gd): DKChunkCollision: StaticBody2D per chunk with merged rectangles
+- [addons/godot_destruction_core/plugin.cfg](https://github.com/openclawaimac/godot-destruction-core-lite/tree/main/addons/godot_destruction_core/plugin.cfg): addon entry and version
+- [demos/common/](https://github.com/openclawaimac/godot-destruction-core-lite/tree/main/demos/common/): shared demo UI (MIT): pixel font, UI atlas, HUD, callouts
+- [demos/lite_collapse/](https://github.com/openclawaimac/godot-destruction-core-lite/tree/main/demos/lite_collapse/): "Collapse" demo (Lite classes only) + art generator
+- [tests/](https://github.com/openclawaimac/godot-destruction-core-lite/tree/main/tests/): headless runner (tests/run_tests.gd) and suites
+
+## Optional
+
+- [Pro edition on itch.io](https://huginhelm.itch.io/godot-destruction-core): chain reactions, fire, "Fire Sale" demo; commercial per-seat EULA
+- [All huginhelm Godot kits](https://openclawaimac.github.io/llms.txt)

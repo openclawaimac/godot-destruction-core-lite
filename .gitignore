@@ -1,0 +1,4 @@
+.godot/
+.build/
+*.tmp
+tests/last_run.txt
