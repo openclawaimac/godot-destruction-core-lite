@@ -3,7 +3,7 @@
 **Free, MIT-licensed, deterministic 2D destruction for Godot 4: destructible cell terrain, damage shapes, single
 detonations and structural collapse with falling pieces, rubble and crush damage.** Pure typed GDScript, Web-export safe.
 
-[![Godot 4.7](https://img.shields.io/badge/Godot-4.7-478cbf?logo=godotengine&logoColor=white)](https://godotengine.org) [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE) [![Tests: 76 passing](https://img.shields.io/badge/tests-76%20passing-brightgreen)](tools/run_tests.sh)
+[![Godot 4.6+](https://img.shields.io/badge/Godot-4.6%2B-478cbf?logo=godotengine&logoColor=white)](https://godotengine.org) [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE) [![Tests: 76 passing](https://img.shields.io/badge/tests-76%20passing-brightgreen)](tools/run_tests.sh)
 
 - **Version 0.2.1** · **Engine:** Godot 4.6+ (tested on 4.7.2) · **Language:** typed GDScript · **Licence:** MIT
 - **Tests:** 76 headless tests (`bash tools/run_tests.sh /path/to/godot`)

@@ -6,7 +6,7 @@ Requires Godot 4.6 or newer (tested on 4.7.2). Pure GDScript, no GDExtension, We
 
 ```bash
 godot --headless --path . --import          # once: registers the DK* classes
-bash tools/run_tests.sh /path/to/godot       # Pro: 128 tests, Lite: 72 tests, must end with "CI: all green"
+bash tools/run_tests.sh /path/to/godot       # 76 tests, must end with "CI: all green"
 godot --path . res://demos/lite_collapse/demo.tscn     # Lite demo: "Collapse"
 ```
 
