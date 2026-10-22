@@ -3,11 +3,11 @@
 **Free, MIT-licensed, deterministic 2D destruction for Godot 4: destructible cell terrain, damage shapes, single
 detonations and structural collapse with falling pieces, rubble and crush damage.** Pure typed GDScript, Web-export safe.
 
-[![Godot 4.6+](https://img.shields.io/badge/Godot-4.6%2B-478cbf?logo=godotengine&logoColor=white)](https://godotengine.org) [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE) [![Tests: 76 passing](https://img.shields.io/badge/tests-76%20passing-brightgreen)](tools/run_tests.sh)
+[![Godot 4.6+](https://img.shields.io/badge/Godot-4.6%2B-478cbf?logo=godotengine&logoColor=white)](https://godotengine.org) [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE) [![Tests: 82 passing](https://img.shields.io/badge/tests-82%20passing-brightgreen)](tools/run_tests.sh)
 
-- **Version 0.2.1** · **Engine:** Godot 4.6+ (tested on 4.7.2) · **Language:** typed GDScript · **Licence:** MIT
-- **Tests:** 76 headless tests (`bash tools/run_tests.sh /path/to/godot`)
-- **Website:** https://openclawaimac.github.io/godot-destruction-core/ · **Pro edition (chain reactions, fire, stress, mask import, debug overlays, replay, Fire Sale demo; 133 tests):** https://huginhelm.itch.io/godot-destruction-core
+- **Version 0.2.2** · **Engine:** Godot 4.6+ (tested on 4.7.2) · **Language:** typed GDScript · **Licence:** MIT
+- **Tests:** 82 headless tests (`bash tools/run_tests.sh /path/to/godot`)
+- **Website:** https://openclawaimac.github.io/godot-destruction-core/ · **Pro edition (chain reactions, fire, stress, mask import, debug overlays, replay, Fire Sale demo; 142 tests):** https://huginhelm.itch.io/godot-destruction-core
 - **For AI agents:** [AGENTS.md](AGENTS.md) · [llms.txt](llms.txt)
 
 ![Collapse demo](docs/demo.gif)
@@ -16,7 +16,7 @@ detonations and structural collapse with falling pieces, rubble and crush damage
 ```bash
 git clone https://github.com/openclawaimac/godot-destruction-core-lite.git && cd godot-destruction-core-lite
 godot --headless --path . --import          # once: registers the DK* classes
-bash tools/run_tests.sh /path/to/godot       # expect 76 tests, "CI: all green"
+bash tools/run_tests.sh /path/to/godot       # expect 82 tests, "CI: all green"
 godot --path .                               # run the "Collapse" demo
 ```
 To use it in your game, copy `addons/godot_destruction_core/lite/` into your project. See [QUICKSTART.md](QUICKSTART.md).
@@ -40,7 +40,7 @@ To use it in your game, copy `addons/godot_destruction_core/lite/` into your pro
 | Command log and replay (`DKCommandLog`): record, replay to an identical hash, checkpoints, save/load | – | ✅ |
 | Demos | "Collapse" (2 local players) | + "Fire Sale" run-and-gun demo (O = debug overlays) |
 | Web builds (HTML5 export presets) | Collapse | + Fire Sale |
-| Headless tests | 76 | 133 (76 Lite + 57 Pro) |
+| Headless tests | 82 | 142 (82 Lite + 60 Pro) |
 | Licence | MIT | Commercial per-seat EULA |
 
 Pro keeps the same API: drop `addons/godot_destruction_core/pro/` next to `lite/` and attach the modules.
@@ -169,7 +169,9 @@ Two local players drop charges on a valley with a hollow brick keep, a timber br
 watchtower. LMB = P1, RMB = P2, M = reduced motion, R = rebuild, SPACE = autoplay (runs until the first click).
 Styled HUD (9-slice plates, stat chips with icons, key-cap hints) in the kit's own bitmap pixel font, plus
 popping comic callouts on blasts and crashes, all from the shared MIT demo UI in `demos/common/`
-(`DemoPixelFont`, `DemoUIArt`, `DemoHud`, `DemoCallouts`; no font or image files). Only Lite classes are used.
+(`DemoPixelFont`, `DemoUIArt`, `DemoHud`, `DemoCallouts`; no font or image files). Smoke puffs, fireballs and
+shock rings are `DemoFxArt` pixel sprites: lumpy hard-edged shapes on the pixel grid that fade out by ordered
+dithering instead of translucency (no anti-aliased circles). Only Lite classes are used.
 Screenshots: `docs/screenshots/lite_collapse_*.png`.
 Art is original and procedural (`demos/lite_collapse/art_src/gen_art.gd`); sources and licences per asset are in
 `demos/lite_collapse/art/ASSETS.md`.
@@ -178,7 +180,7 @@ Art is original and procedural (`demos/lite_collapse/art_src/gen_art.gd`); sourc
 
 - No rigid-body or Voronoi fracture: destruction is cell based (default 8 px cells); pieces fall straight down and do not collide with each other in the air.
 - No networking. The simulation is deterministic and the command log replays to an identical hash, so lockstep or replays are possible, but you write the netcode.
-- Tested headless on Godot 4.7.2 (Linux) and smoke-tested in headless Chrome; real browsers and devices have not been tested.
+- Tested headless on Godot 4.7.2 and 4.6 (Linux) and smoke-tested in headless Chrome; real browsers and devices have not been tested.
 
 ## Pro edition
 

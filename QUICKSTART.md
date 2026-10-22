@@ -6,7 +6,7 @@ Requires Godot 4.6 or newer (tested on 4.7.2). Pure GDScript, no GDExtension, We
 
 ```bash
 godot --headless --path . --import          # once: registers the DK* classes
-bash tools/run_tests.sh /path/to/godot       # 76 tests, must end with "CI: all green"
+bash tools/run_tests.sh /path/to/godot       # 82 tests, must end with "CI: all green"
 godot --path . res://demos/lite_collapse/demo.tscn     # Lite demo: "Collapse"
 ```
 
@@ -41,39 +41,6 @@ world.detonate(Vector2(320, 200), 24.0, 600, &"blast", 1)
 
 `world.tick()` runs automatically with `auto_tick = true`; collapse, falling pieces and crush damage happen over
 the next ticks. Listen to `piece_moved` / `piece_landed` to crush your own entities.
-
-## 3. Pro: chain reactions, fire, stress, replay
-
-```gdscript
-var reactor := DKChainReactor.new()
-reactor.attach(world)                        # world.detonate() now goes through the reactor
-var barrel := reactor.register_trigger(Vector2(400, 210), 20.0, 500, &"blast", 4)
-
-var fire := DKFire.new()
-fire.attach(world, reactor)                  # flames light barrels, fuel cells explode
-fire.ignite_circle(Vector2(300, 180), 10.0, 1)
-reactor.chain_finished.connect(func(stats): print("chain fired ", stats.fired, " blasts"))
-```
-
-Flammability is plain material data: `burn_ticks`, `ignite_pct`, `ash_into`.
-
-```gdscript
-var stress := DKStress.new()
-stress.attach(world)                         # beams snap, overloaded columns crush (material strength/density)
-
-var log := DKCommandLog.new()
-log.attach(world)
-log.start_recording()
-log.execute(&"detonate", [Vector2(320, 200), 24.0, 600, &"blast", 1, 0])   # instead of world.detonate()
-for i in 120: log.step()                     # instead of world.tick()
-log.stop_recording()
-# fresh_world: built like the original (same level, same modules attached), then:
-var result := log.replay(fresh_world)        # {ok, reason, mismatch_tick, final_digest, expected}
-```
-
-Debug overlays: add a `DKDebugOverlay` next to the world and `attach(world, reactor, stress, inspector)`
-(chain graph, stress heat map, "why did this fall?" via `DKFallInspector`), and a `DKBudgetHud` for frame cost.
-In the Fire Sale demo, press `O`.
 
 ## 3. Determinism and saves
 

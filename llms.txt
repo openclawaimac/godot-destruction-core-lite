@@ -1,6 +1,6 @@
 # Godot Destruction Core Lite
 
-> Free, MIT-licensed 2D destruction addon for Godot 4 (typed GDScript, Godot 4.6+, tested on 4.7.2): destructible cell terrain, damage shapes, single detonations and deterministic structural collapse with falling pieces, rubble and crush damage. 76 passing headless tests (`bash tools/run_tests.sh`). The Pro edition adds chain reactions (DKChainReactor), deterministic fire (DKFire), load-based stress (DKStress), image/mask import (DKMaskAdapter), debug overlays, command log/replay (DKCommandLog) and a run-and-gun demo, with the same API (133 tests).
+> Free, MIT-licensed 2D destruction addon for Godot 4 (typed GDScript, Godot 4.6+, tested on 4.7.2): destructible cell terrain, damage shapes, single detonations and deterministic structural collapse with falling pieces, rubble and crush damage. 82 passing headless tests (`bash tools/run_tests.sh`). The Pro edition adds chain reactions (DKChainReactor), deterministic fire (DKFire), load-based stress (DKStress), image/mask import (DKMaskAdapter), debug overlays, command log/replay (DKCommandLog) and a run-and-gun demo, with the same API (142 tests).
 
 Copy `addons/godot_destruction_core/lite/` into a Godot 4 project to use it. Class prefix `DK`; entry point is `DKWorld`.
 

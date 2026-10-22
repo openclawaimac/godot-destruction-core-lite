@@ -2,6 +2,26 @@
 
 All notable changes to Godot Destruction Core. Versions follow semantic versioning (0.x: API may change).
 
+## 0.2.2 (2026-10-21)
+
+Polish release for the demo; the addon API is unchanged.
+
+### Added (demos)
+- `DemoFxArt` (`demos/common/demo_fx_art.gd`, MIT): runtime pixel FX sprites. Smoke puffs and fireballs are lumpy
+  multi-lobe shapes in three tones, shock rings are 1-2 px pixel bands; every pixel is fully opaque or fully clear
+  and the fade is an ordered (Bayer) dither, so the effects sit on the same pixel grid as the tiles. Sprites are
+  cached per radius and dither level and drawn at whole-pixel positions (`snap_origin`).
+
+### Changed (demos)
+- The Collapse demo draws smoke, explosion flashes, fireballs and shock rings with `DemoFxArt` instead of smooth
+  anti-aliased / translucent `draw_circle` and `draw_arc` circles.
+
+### Tests
+- New `tests/lite/test_demo_fx.gd`: puff and ring sprites have hard alpha and only their palette colours, fades drop
+  pixels by dithering, puff silhouettes are not discs, draw positions snap to the pixel grid, and no demo source
+  draws circles or arcs at runtime.
+- Totals: 82 headless tests, all green on Godot 4.7.2 and 4.6.
+
 ## 0.2.1 (2026-10-20)
 
 ### Added (Lite)

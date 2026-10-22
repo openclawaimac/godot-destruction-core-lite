@@ -23,7 +23,7 @@ cat > "$OUT/index.html" <<'HTML'
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><title>Godot Destruction Core: web demos</title>
 <style>body{background:#120d18;color:#e9e3d2;font:16px/1.5 monospace;margin:3em}a{color:#5ad1ff}</style></head>
-<body><h1>Godot Destruction Core 0.2.1: web demos</h1>
+<body><h1>Godot Destruction Core 0.2.2: web demos</h1>
 <ul><li><a href="lite/index.html">Lite: "Collapse"</a> (LMB/RMB charges, M, R, SPACE)</li>
 </ul>
 <p>Autoplay runs until the first input.</p></body></html>

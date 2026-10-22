@@ -39,7 +39,7 @@ signal piece_landed(piece: Dictionary, crush: DKDamage, impact: int)
 signal piece_lost(piece: Dictionary)
 
 ## Addon version (matches plugin.cfg).
-const VERSION := "0.2.1"
+const VERSION := "0.2.2"
 const Q_REBUILD := &"rebuild"
 const SNAPSHOT_VERSION := 2
 

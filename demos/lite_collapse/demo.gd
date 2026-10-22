@@ -21,6 +21,8 @@ const MACRO_TILES := {&"rock": Vector2i(4, 4), &"bedrock": Vector2i(8, 2)}
 const PLAYER_COLORS := {1: Color("ffb347"), 2: Color("5ad1ff")}
 const CHARGE_RADIUS := 26.0
 const CHARGE_POWER := 40
+## Dusk smoke palette (shadow, base, light) for the purple valley.
+const LITE_SMOKE := [Color("4a3c4e"), Color("6a5a6c"), Color("8e7e8e")]
 
 ## Scripted demolition: [tick, cell x, cell y, instigator].
 const AUTOPLAY := [
@@ -55,6 +57,8 @@ var _smoke: Array = []       # {pos, vel, t, life, r}
 var _hud: Dictionary = {}
 var font: DemoPixelFont
 var ui_art: DemoUIArt
+## Pixel FX sprites (smoke puffs, fireballs, shock rings).
+var fx_art := DemoFxArt.new()
 var hud: DemoHud
 var callouts: DemoCallouts
 var _callout_cd := 0
@@ -290,7 +294,7 @@ func _on_detonated(det: Dictionary, _rep: DKReport) -> void:
 	for k in 7:
 		var h := DKDebris._hash(int(det["pos"].x), int(det["pos"].y), k)
 		var v := Vector2((float(h % 200) / 100.0 - 1.0) * 0.6, -0.3 - float((h >> 8) % 100) / 200.0)
-		_smoke.append({"pos": det["pos"] + v * 8.0, "vel": v, "t": 0, "life": 50 + (h >> 4) % 30, "r": 4.0 + float((h >> 12) % 5)})
+		_smoke.append({"pos": det["pos"] + v * 8.0, "vel": v, "t": 0, "life": 50 + (h >> 4) % 30, "r": 4.0 + float((h >> 12) % 5), "salt": h >> 20})
 
 
 func _on_landed(piece: Dictionary, crush: DKDamage, impact: int) -> void:
@@ -323,24 +327,23 @@ func _step_fx() -> void:
 # — Drawing (procedural FX, pixel-snapped) —
 
 func _draw_fx() -> void:
+	# Pixel puffs and rings (DemoFxArt): hard-edged sprites that fade by dithering.
 	for s in _smoke:
 		var k := float(s["t"]) / float(s["life"])
 		var r := float(s["r"]) * (1.0 + k * 1.6)
-		var c := Color(0.32, 0.27, 0.33, 0.55 * (1.0 - k))
-		fx.draw_circle((s["pos"] as Vector2).round(), round(r), c)
+		DemoFxArt.draw(fx, fx_art.puff(int(round(r)), k, LITE_SMOKE, int(s.get("salt", 0)), 0.75), s["pos"])
 	for e in _explosions:
 		var t := int(e["t"])
 		var p: Vector2 = (e["pos"] as Vector2).round()
 		var r: float = e["r"]
+		var salt := int(p.x) + int(p.y) * 3
 		if t < 3:
-			fx.draw_circle(p, round(r * 0.9), Color("fff4d6"))
+			DemoFxArt.draw(fx, fx_art.puff(int(round(r * 0.9)), 0.0, DemoFxArt.FLASH, salt), p)
 		elif t < 12:
 			var k := float(t - 3) / 9.0
-			fx.draw_circle(p, round(r * (0.8 - 0.5 * k)), Color("ff8a3d"))
-			fx.draw_circle(p, round(r * (0.55 - 0.4 * k)), Color("ffd36b"))
+			DemoFxArt.draw(fx, fx_art.puff(int(round(r * (0.8 - 0.5 * k))), maxf(0.0, k - 0.5), DemoFxArt.FIRE, salt), p)
 		var ring := r * (0.6 + float(t) / 22.0 * 0.9)
-		var col: Color = e["color"]
-		fx.draw_arc(p, round(ring), 0.0, TAU, 40, Color(col, 1.0 - float(t) / 22.0), 2.0)
+		DemoFxArt.draw(fx, fx_art.ring(int(round(ring)), float(t) / 22.0, e["color"], salt), p)
 	if not manual and _mouse.x > -50:
 		var m := (_mouse - fx.position).round()
 		var cc := Color("fff1d6")

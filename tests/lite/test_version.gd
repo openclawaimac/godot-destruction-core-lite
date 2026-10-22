@@ -6,7 +6,7 @@ func test_version_is_consistent() -> void:
 	var cfg := ConfigFile.new()
 	eq(cfg.load("res://addons/godot_destruction_core/plugin.cfg"), OK, "plugin.cfg loads")
 	var v := String(cfg.get_value("plugin", "version", ""))
-	eq(v, "0.2.1", "plugin.cfg version")
+	eq(v, "0.2.2", "plugin.cfg version")
 	eq(DKWorld.VERSION, v, "DKWorld.VERSION matches plugin.cfg")
 	ok(FileAccess.get_file_as_string("res://README.md").contains("Version %s" % v), "README states the version")
 	var log := FileAccess.get_file_as_string("res://CHANGELOG.md")

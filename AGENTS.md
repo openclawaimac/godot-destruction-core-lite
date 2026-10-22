@@ -26,7 +26,7 @@ Website: https://openclawaimac.github.io/godot-destruction-core/
 ## Run the tests
 ```bash
 godot --headless --path . --import          # once, and after adding a class_name
-bash tools/run_tests.sh /path/to/godot       # must end with "CI: all green" (76 tests)
+bash tools/run_tests.sh /path/to/godot       # must end with "CI: all green" (82 tests)
 godot --headless --path . -s res://tests/run_tests.gd -- --filter=collapse   # one suite
 GODOT=/path/to/godot bash ci/export_web.sh       # web build(s) into .build/web
 ```
